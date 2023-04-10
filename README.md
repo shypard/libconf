@@ -30,7 +30,20 @@ To run the unit tests, which require the `cmocka` library, run the following com
 make test
 ```
 
-## Example Usage
+## Usage
+
+To use `libconf` in your project, include the header file in your source code:
+
+```c
+#include <libconf.h>
+```
+
+### Parsing Configuration Files
+
+TBD 
+
+### Example 
+
 Here's an example of how to use `libconf` to parse a configuration file:
 
 ```c

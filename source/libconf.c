@@ -83,8 +83,9 @@ conf_data* conf_load(const char* filename)
 		} else {
 			// The value is a string, remove starting and trailing
 			pair->type = CONF_STRING;
-			size_t len = strlen(pos + 1) > MAX_VALUE_LENGTH ? MAX_VALUE_LENGTH
-															: strlen(pos + 1);
+			size_t len =
+				strlen(pos + 1) > MAX_VAL_LEN ? MAX_VAL_LEN : strlen(pos + 1);
+
 			pair->value.str = (char*)malloc(len);
 			if (!pair->value.str) {
 				fclose(fp);
@@ -92,8 +93,20 @@ conf_data* conf_load(const char* filename)
 				perror("Failed to allocate memory");
 				return NULL;
 			}
-			strncpy(pair->value.str, pos + 1, len);
-			pair->value.str[len - 1] = '\0';
+
+			// remove leading spaces and '='
+			while (isspace(*pos) || *pos == '=') {
+				pos++;
+				len--;
+			}
+
+			// remove trailing spaces
+			while (isspace(pos[len - 1])) {
+				len--;
+			}
+
+			strncpy(pair->value.str, pos, len);
+			pair->value.str[len] = '\0';
 		}
 
 		// Add the new pair to the array

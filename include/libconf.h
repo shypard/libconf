@@ -14,8 +14,8 @@
 #include <stdio.h>
 
 /** Set the maximum length of key and string values */
-#define MAX_KEY_LENGTH 128
-#define MAX_VALUE_LENGTH 256
+#define MAX_KEY_LEN 128
+#define MAX_VAL_LEN 256
 
 /**
  * @brief Enumeration of supported data types.
@@ -45,9 +45,9 @@ typedef union {
  * @brief Struct for storing a key-value pair.
  */
 typedef struct {
-	char	   key[MAX_KEY_LENGTH]; /**< Key string */
-	conf_type  type;				/**< Data type */
-	conf_value value;				/**< Value */
+	char	   key[MAX_KEY_LEN]; /**< Key string */
+	conf_type  type;			 /**< Data type */
+	conf_value value;			 /**< Value */
 } conf_pair;
 
 /**
