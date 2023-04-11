@@ -1,6 +1,6 @@
 # libconf
 
-`libconf` is a C library for parsing configuration files in the format of `Key=Value` pairs. Lines starting with `#` are treated as comments. The library supports parsing values of various types, including strings, integers, longs, floats, and doubles.
+`libconf` is a C library for parsing configuration files in the format of `Key=Value` pairs. The library supports parsing values of various types, including strings, integers, longs, floats, and doubles.
 
 ## Building and Installing
 
@@ -41,7 +41,48 @@ To use `libconf` in your project, include the header file in your source code:
 
 ### Parsing Configuration Files
 
-TBD 
+`libconf` is able to parse config files in a `Key=Value` manner. Lines starting with `#` are treated as comments. Leading and trailing 
+whitespaces in the key and value are ignored. The following is an example of a valid configuration file:
+
+```makefile
+# This is a comment
+name=John Doe
+age=42
+weight=73.5
+```
+
+To parse a configuration file, create a new `conf_data* ` object using the `conf_load` function:
+
+```c
+conf_data *data = conf_load("example.conf");
+```
+
+The `conf_load` function takes a single argument, which is the path to the configuration file. If the file cannot be opened, the function will return `NULL`.
+
+### Getting Values
+
+Once the configuration file has been parsed, you can retrieve values using the `conf_get_*` functions. The following functions are available:
+
+```c
+int conf_get_int(const conf_data* data, const char* key, int default_value)
+long conf_get_long(const conf_data* data, const char* key, long default_value);
+float conf_get_float(const conf_data* data, const char* key, float default_value);
+double conf_get_double(const conf_data* data, const char* key, double default_value);
+const char* conf_get_string(const conf_data* data, const char* key, const char* default_value);
+char conf_get_char(const conf_data* data, const char* key, char default_value);
+```
+
+Each function takes three arguments. The first argument is a pointer to the `conf_data` object, the second argument is the key of the value to retrieve. If the key is not found, the function will return `NULL`. The third argument is the default value to return if the key is not found.
+
+**Hint**: `int` values are stored as `long` values, so you can use the `conf_get_long` function to retrieve `int` values. The same applies to `float` and `double` values, which are stored as `double` values. However, make sure that the read value fits the type you are trying to store it in.
+
+### Freeing Memory
+
+When you are done using the `conf_data` object, you should free the memory using the `conf_free` function:
+
+```c
+conf_free(data);
+```
 
 ### Example 
 
