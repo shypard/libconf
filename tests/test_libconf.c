@@ -210,17 +210,17 @@ int main(void)
 	setup();
 
 	const struct CMUnitTest tests[] = {
-		// cmocka_unit_test(test_conf_load),
-		// cmocka_unit_test(test_conf_load_invalid),
-		// cmocka_unit_test(test_conf_parse_string),
-		// cmocka_unit_test(test_conf_parse_integer),
-		// cmocka_unit_test(test_conf_parse_long),
-		// cmocka_unit_test(test_conf_parse_float),
-		// cmocka_unit_test(test_conf_parse_double),
-		// cmocka_unit_test(test_conf_parse_key_not_found),
-		// cmocka_unit_test(test_conf_remove_whitespaces_in_value),
+		cmocka_unit_test(test_conf_load),
+		cmocka_unit_test(test_conf_load_invalid),
+		cmocka_unit_test(test_conf_parse_string),
+		cmocka_unit_test(test_conf_parse_integer),
+		cmocka_unit_test(test_conf_parse_long),
+		cmocka_unit_test(test_conf_parse_float),
+		cmocka_unit_test(test_conf_parse_double),
+		cmocka_unit_test(test_conf_parse_key_not_found),
+		cmocka_unit_test(test_conf_remove_whitespaces_in_value),
 		cmocka_unit_test(test_conf_remove_whitespaces_in_key_before),
-		// cmocka_unit_test(test_conf_remove_whitespaces_in_key_after),
+		cmocka_unit_test(test_conf_remove_whitespaces_in_key_after),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

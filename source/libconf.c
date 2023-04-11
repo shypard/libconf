@@ -39,17 +39,20 @@ conf_data* conf_load(const char* filename)
 
 	// Read the file line by line
 	char line[512];
+	char* key = line;
+	size_t key_len = 0;
 	while (fgets(line, sizeof(line), fp)) {
 		// Ignore comments
 		if (line[0] == '#') {
 			continue;
 		}
 
-		// Parse key-value pairs
+		// Parse key-value pairs and set the length of the key
 		char* pos = strchr(line, '=');
 		if (!pos) {
 			continue;
 		}
+		key_len = pos - line;
 
 		// Allocate space for the new pair and copy the key
 		conf_pair* pair = (conf_pair*)malloc(sizeof(conf_pair));
@@ -59,8 +62,19 @@ conf_data* conf_load(const char* filename)
 			perror("Failed to allocate memory");
 			return NULL;
 		}
-		strncpy(pair->key, line, pos - line);
-		pair->key[pos - line] = '\0';
+
+		// Remove leading and trailing spaces from the key
+		while(isspace(*key)) {
+			key++;
+			key_len--;
+		}
+		while(isspace(key[key_len - 1])) {
+			key_len--;
+		}
+
+		// Copy the key to the pair
+		strncpy(pair->key, key, key_len);
+		pair->key[key_len] = '\0';
 
 		// Determine the type of the value
 		char*  end;
@@ -126,6 +140,9 @@ conf_data* conf_load(const char* filename)
 	fclose(fp);
 	return data;
 }
+
+
+
 
 void conf_free(conf_data* data)
 {
