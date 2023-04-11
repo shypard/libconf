@@ -38,8 +38,8 @@ conf_data* conf_load(const char* filename)
 	data->pairs = NULL;
 
 	// Read the file line by line
-	char line[512];
-	char* key = line;
+	char   line[512];
+	char*  key	   = line;
 	size_t key_len = 0;
 	while (fgets(line, sizeof(line), fp)) {
 		// Ignore comments
@@ -64,11 +64,11 @@ conf_data* conf_load(const char* filename)
 		}
 
 		// Remove leading and trailing spaces from the key
-		while(isspace(*key)) {
+		while (isspace(*key)) {
 			key++;
 			key_len--;
 		}
-		while(isspace(key[key_len - 1])) {
+		while (isspace(key[key_len - 1])) {
 			key_len--;
 		}
 
@@ -80,15 +80,10 @@ conf_data* conf_load(const char* filename)
 		char*  end;
 		double dval = strtod(pos + 1, &end);
 		if (*end == '\n' || *end == '\0') {
+			// The value is an integer or a long
 			if ((long long)dval == dval) {
-				// The value is an integer or a long
-				if (dval > INT_MAX || dval < INT_MIN) {
-					pair->type		 = CONF_LONG;
-					pair->value.lval = (long long)dval;
-				} else {
-					pair->type		 = CONF_INT;
-					pair->value.ival = (int)dval;
-				}
+				pair->type		 = CONF_LONG;
+				pair->value.lval = (long long)dval;
 			} else {
 				// The value is a float or a double
 				pair->type		 = CONF_DOUBLE;
@@ -141,9 +136,6 @@ conf_data* conf_load(const char* filename)
 	return data;
 }
 
-
-
-
 void conf_free(conf_data* data)
 {
 	if (data) {
@@ -176,6 +168,9 @@ int conf_get_int(const conf_data* data, const char* key, int default_value)
 	const conf_pair* pair = conf_get_pair(data, key);
 	if (pair && pair->type == CONF_INT) {
 		return pair->value.ival;
+	}
+	if (pair && pair->type == CONF_LONG) {
+		return (int)pair->value.lval;
 	}
 	return default_value;
 }
