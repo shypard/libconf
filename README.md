@@ -7,7 +7,8 @@
 `libconf` can be built using the included `makefile` file, which requires `make` and the `clang` C compiler. If you are on a Red Hat-based Linux distribution, you can install them using the following command:
 
 ```bash
-sudo dnf -y install make clang clang-extra-tools
+sudo dnf -y install make clang clang-extra-tools # install build tools
+sudo dnf -y install cmocka-devel                 # install external libraries
 ```
 
 To build and install the library, run the following commands:
