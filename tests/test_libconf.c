@@ -9,7 +9,9 @@
  */
 
 #include "libconf.h"
-
+// clang-format off
+// clang-format sorts the includes in alphabetical order, however setjmp.h must
+// be included before cmocka.h
 #include <errno.h>
 #include <fcntl.h>
 #include <setjmp.h>
@@ -22,6 +24,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+// clang-format on
 
 /* Configuration file path */
 #define CONF_PATH "test.conf"
