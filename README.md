@@ -1,6 +1,6 @@
 # libconf
 
-`libconf` is a C library for parsing configuration files in the format of `Key=Value` pairs. The library supports parsing values of various types, including strings, integers, longs, floats, and doubles.
+`libconf` is a C library for parsing configuration files in the format of `Key=Value` pairs. The library supports parsing values of various types, including strings, integers, longs, floats, and doubles. The code is written in pure C99 and does not have any external dependencies (except for the unit tests, which require the `cmocka` library).
 
 ## Building and Installing
 
@@ -128,3 +128,18 @@ Name: John Doe
 Age: 42
 Weight: 73.500000
 ```
+
+## Contributing
+
+If you would like to contribute to `libconf`, please fork the repository and submit a pull request. If you find any bugs, please submit an issue.
+Please add a unit test for any new features you add, make sure to run the unit tests with `make tests` and stay to the coding style of the project (use `clang-format` with `make format`).
+
+## FAQ
+
+**Q**: Why the need for another configuration file parser?
+
+**A**: I was not at home for a few days without any access to external libraries. I needed a simple config file parser for a project I was working on, so this is what I came up with.
+
+**Q**: What is the difference between `libconf` and other configuration file parsers?
+
+`libconf` is meant to be a simple, lightweight configuration file parser. It is not as feature rich as `libconfig` or `libconfuse`; however is much smaller, less prone to potential bugs, and does not have any external dependencies.
