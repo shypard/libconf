@@ -64,7 +64,7 @@ The `conf_load` function takes a single argument, which is the path to the confi
 Once the configuration file has been parsed, you can retrieve values using the `conf_get_*` functions. The following functions are available:
 
 ```c
-int conf_get_int(const conf_data* data, const char* key, int default_value)
+int conf_get_int(const conf_data* data, const char* key, int default_value);
 long conf_get_long(const conf_data* data, const char* key, long default_value);
 float conf_get_float(const conf_data* data, const char* key, float default_value);
 double conf_get_double(const conf_data* data, const char* key, double default_value);
