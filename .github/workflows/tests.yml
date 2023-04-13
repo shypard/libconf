@@ -1,0 +1,26 @@
+name: Run Unit Tests and check formatting
+
+on:
+  workflow-dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Run Build Job on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install Requirements
+      run: sudo apt-get update -y && sudo apt-get install -y clang-tools libcmocka-dev
+
+    - name: Run Unit Tests
+      run: make tests
+
+    - name: Check Formatting
+      run: make format-check

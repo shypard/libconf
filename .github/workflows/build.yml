@@ -1,0 +1,30 @@
+name: Build Library and Examples
+
+on:
+  workflow-dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Run Build Job on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install Requirements
+      run: sudo apt-get update -y && sudo apt-get install -y clang
+
+    - name: Build Library
+      run: make 
+
+    - name: Install Library
+      run: sudo make install
+
+    - name: Build Example
+      run: make examples
+
