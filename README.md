@@ -6,7 +6,7 @@
 
 | Status  | Build Status                                                                                                                                                 | Test Status                                                                                                                                                  |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Linux   | [![Run Unittests](https://github.com/shypard/libconf/actions/workflows/tests.yml/badge.svg)](https://github.com/shypard/libconf/actions/workflows/tests.yml) | [![Build Library](https://github.com/shypard/libconf/actions/workflows/build.yml/badge.svg)](https://github.com/shypard/libconf/actions/workflows/build.yml) |
+| Linux   | [![Build Library](https://github.com/shypard/libconf/actions/workflows/build.yml/badge.svg)](https://github.com/shypard/libconf/actions/workflows/build.yml) | [![Run Unittests](https://github.com/shypard/libconf/actions/workflows/tests.yml/badge.svg)](https://github.com/shypard/libconf/actions/workflows/tests.yml) |
 | Windows | TBD                                                                                                                                                          | TBD                                                                                                                                                          |
 
 </div>
