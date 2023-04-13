@@ -14,7 +14,7 @@ OBJECTS=$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 HEADERS=$(wildcard $(INC_DIR)/*.h)
 LIBRARY=$(LIB_DIR)/libconf.so
 
-.PHONY: all clean install examples run_examples tests format analyze
+.PHONY: all clean install examples run_examples tests format format-check analyze 
 
 all: $(LIBRARY)
 
@@ -53,6 +53,9 @@ uninstall:
 
 format:
 	clang-format --style=file -i $(shell find . -type f \( -name "*.c" -o -name "*.h" \))
+
+format-check:
+	clang-format --style=file  $(shell find . -type f \( -name "*.c" -o -name "*.h" \)) --dry-run -Werror
 
 analyze:
 	clang-tidy $(shell find . -type f \( -name "*.c" -o -name "*.h" \)) --format-style=file -checks=-*,clang-analyzer-*,-clang-analyzer-cplusplus*,portability-*,readability-*
