@@ -1,7 +1,7 @@
 name: Run Unit Tests and check formatting
 
 on:
-  workflow-dispatch:
+  workflow_dispatch: {}
   push:
     branches: [ "main" ]
   pull_request:
