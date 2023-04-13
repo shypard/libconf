@@ -2,6 +2,16 @@
 
 `libconf` is a C library for parsing configuration files in the format of `Key=Value` pairs. The library supports parsing values of various types, including strings, integers, longs, floats, and doubles. The code is written in pure C99 and does not have any external dependencies (except for the unit tests, which require the `cmocka` library).
 
+<div align="center">
+
+| Status  | Build Status                                                                                                                                                 | Test Status                                                                                                                                                  |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Linux   | [![Run Unittests](https://github.com/shypard/libconf/actions/workflows/tests.yml/badge.svg)](https://github.com/shypard/libconf/actions/workflows/tests.yml) | [![Build Library](https://github.com/shypard/libconf/actions/workflows/build.yml/badge.svg)](https://github.com/shypard/libconf/actions/workflows/build.yml) |
+| Windows | TBD                                                                                                                                                          | TBD                                                                                                                                                          |
+
+</div>
+
+
 ## Building and Installing
 
 `libconf` can be built using the included `makefile` file, which requires `make` and the `clang` C compiler. If you are on a Red Hat-based Linux distribution, you can install them using the following command:

@@ -1,4 +1,4 @@
-name: Build Library and Examples
+name: Build Library
 
 on:
   workflow_dispatch: {}
@@ -25,6 +25,6 @@ jobs:
     - name: Install Library
       run: sudo make install
 
-    - name: Build Example
+    - name: Build Examples
       run: make examples
 
