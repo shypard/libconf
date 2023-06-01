@@ -99,27 +99,37 @@ conf_free(data);
 Here's an example of how to use `libconf` to parse a configuration file:
 
 ```c
-#include <stdio.h>
 #include <libconf.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char *argv[]) {
-  conf_parser_t *parser = conf_parser_new("example.conf");
-  if (parser == NULL) {
-    printf("Error: could not open configuration file.\n");
-    return 1;
-  }
+int main(int argc, char* argv[])
+{
+    if (argc <= 1) {
+        fprintf(stderr, "Error: No config file given.\n");
+        return -1;
+    }
 
-  const char *name = conf_parser_get_string(parser, "name");
-  int age = conf_parser_get_int(parser, "age");
-  float weight = conf_parser_get_float(parser, "weight");
+    /* Read in, and parse conf file */
+    conf_data* data = conf_load(argv[1]);
+    if (data == NULL) {
+        fprintf(stderr, "Error: Could not parse configuration file.\n");
+        return -1;
+    }
 
-  printf("Name: %s\n", name);
-  printf("Age: %d\n", age);
-  printf("Weight: %f\n", weight);
+    /* Get values from conf file */
+    int age = conf_get_int(parser, "age");
+    float weight = conf_get_float(parser, "weight");
+    const char *name = conf_get_string(parser, "name");
 
-  conf_parser_free(parser);
+    /* Print values */
+    printf("Name: %s\n", name);
+    printf("Age: %d\n", age);
+    printf("Weight: %f\n", weight);
 
-  return 0;
+    /* Cleanup */
+    conf_free(data);
+    return 0;
 }
 ```
 
