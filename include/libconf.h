@@ -69,7 +69,7 @@ typedef struct {
  * The conf_data struct should be freed using the conf_free() function when it
  * is no longer needed.
  */
-conf_data* conf_load(const char* filename);
+extern conf_data* conf_load(const char* filename);
 
 /**
  * @brief Frees the memory allocated by a conf_data struct.
@@ -79,7 +79,7 @@ conf_data* conf_load(const char* filename);
  * This function should be called when the conf_data struct is no longer needed
  * to free the memory allocated by the struct and its members.
  */
-void conf_free(conf_data* data);
+extern void conf_free(conf_data* data);
 
 /**
  * @brief Gets a pointer to a conf_pair struct for a given key.
@@ -92,7 +92,7 @@ void conf_free(conf_data* data);
  * The conf_pair struct contains a value and a type. The type can be used to
  * determine which member of the conf_value union to use.
  */
-const conf_pair* conf_get_pair(const conf_data* data, const char* key);
+extern const conf_pair* conf_get_pair(const conf_data* data, const char* key);
 
 /**
  * @brief Gets the integer value associated with a given key.
@@ -105,7 +105,8 @@ const conf_pair* conf_get_pair(const conf_data* data, const char* key);
  * @return Integer value associated with the key, or the default value if the
  * key is not found or the value is not an integer.
  */
-int conf_get_int(const conf_data* data, const char* key, int default_value);
+extern int conf_get_int(const conf_data* data, const char* key,
+						int default_value);
 
 /**
  * @brief Gets the long value associated with a given key.
@@ -118,7 +119,8 @@ int conf_get_int(const conf_data* data, const char* key, int default_value);
  * @return Long value associated with the key, or the default value if the key
  * is not found or the value is not a long.
  */
-long conf_get_long(const conf_data* data, const char* key, long default_value);
+extern long conf_get_long(const conf_data* data, const char* key,
+						  long default_value);
 
 /**
  * @brief Gets the float value associated with a given key.
@@ -131,8 +133,8 @@ long conf_get_long(const conf_data* data, const char* key, long default_value);
  * @return Float value associated with the key, or the default value if the key
  * is not found or the value is not a float.
  */
-float conf_get_float(const conf_data* data, const char* key,
-					 float default_value);
+extern float conf_get_float(const conf_data* data, const char* key,
+							float default_value);
 
 /**
  * @brief Gets the double value associated with a given key.
@@ -145,8 +147,8 @@ float conf_get_float(const conf_data* data, const char* key,
  * @return Double value associated with the key, or the default value if the key
  * is not found or the value is not a double.
  */
-double conf_get_double(const conf_data* data, const char* key,
-					   double default_value);
+extern double conf_get_double(const conf_data* data, const char* key,
+							  double default_value);
 
 /**
  * @brief Gets the string value associated with a given key.
@@ -162,8 +164,8 @@ double conf_get_double(const conf_data* data, const char* key,
  * The returned string should be freed using the standard library function
  * free() when it is no longer needed.
  */
-const char* conf_get_string(const conf_data* data, const char* key,
-							const char* default_value);
+extern const char* conf_get_string(const conf_data* data, const char* key,
+								   const char* default_value);
 
 /**
  * @brief Gets the character value associated with a given key.
@@ -176,6 +178,7 @@ const char* conf_get_string(const conf_data* data, const char* key,
  * @return Character value associated with the key, or the default value if the
  * key is not found or the value is not a character.
  */
-char conf_get_char(const conf_data* data, const char* key, char default_value);
+extern char conf_get_char(const conf_data* data, const char* key,
+						  char default_value);
 
 #endif /* LIBCONF_H */

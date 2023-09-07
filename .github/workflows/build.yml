@@ -17,14 +17,14 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install Requirements
-      run: sudo apt-get update -y && sudo apt-get install -y clang
+      run: sudo apt-get update -y && sudo apt-get install -y meson
 
-    - name: Build Library
-      run: make 
+    - name: Build Library and run Unit Tests
+      run: meson setup build && meson compile -C build && meson test -C build
 
     - name: Install Library
-      run: sudo make install
+      run: meson install -C build && sudo ldconfig
 
     - name: Build Examples
-      run: make examples
+      run: cd examples && meson setup build && meson compile -C build
 

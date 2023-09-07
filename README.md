@@ -22,18 +22,20 @@ and the `clang` C compiler. If you are on a Red Hat-based Linux distribution,
 you can install them using the following command:
 
 ```bash
-sudo dnf -y install make clang clang-tools-extra # install build tools
-sudo dnf -y install libcmocka-devel              # install external libraries
+$ sudo dnf -y install meson               # install build tools
+$ sudo dnf -y install libcmocka-devel     # install external libraries
 ```
 
 To build and install the library, run the following commands:
 
 ```bash
-make && sudo make install
+$ meson setup build
+$ meson compile -C build
+$ sudo meson install -C build
 ```
 
 This will build the library and install it to the default location
-(`/usr/local/lib`) along with the header files.
+(`/usr/local/lib64`) along with the header files (`/usr/local/include`).
 
 ## License
 
@@ -46,7 +48,8 @@ To run the unit tests, which require the `cmocka` library, run the following
 command from the build directory:
 
 ```bash
-make test
+$ meson setup build
+$ meson test -C build
 ```
 
 ## Usage
@@ -176,20 +179,5 @@ Weight: 73.500000
 If you would like to contribute to `libconf`, please fork the repository and
 submit a pull request. If you find any bugs, please submit an issue. Please add
 a unit test for any new features you add, make sure to run the unit tests with
-`make tests` and stay to the coding style of the project (use `clang-format`
-with `make format`).
-
-## FAQ
-
-**Q**: Why the need for another configuration file parser?
-
-**A**: I was not at home for a few days without any access to external
-libraries. I needed a simple config file parser for a project I was working on,
-so this is what I came up with.
-
-**Q**: What is the difference between `libconf` and other configuration file
-parsers?
-
-`libconf` is meant to be a simple, lightweight configuration file parser. It is
-not as feature rich as `libconfig` or `libconfuse`; however is much smaller,
-less prone to potential bugs, and does not have any external dependencies.
+`meson setup build && meson test -C build` and stay to the coding style of the
+project (use `clang-format` with `make format`).
