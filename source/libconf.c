@@ -138,81 +138,88 @@ conf_data* conf_load(const char* filename)
 
 void conf_free(conf_data* data)
 {
-	if (data) {
-		if (data->pairs) {
-			for (int i = 0; i < data->count; i++) {
-				if (data->pairs[i].type == CONF_STRING) {
-					free(data->pairs[i].value.str);
-				}
-			}
-			free(data->pairs);
+	if (!data) return;
+
+	/* Iterate through all config pairs and free them*/
+	for (int i = 0; i < data->count; i++) {
+		if (data->pairs[i].type == CONF_STRING) {
+			free(data->pairs[i].value.str);
 		}
-		free(data);
 	}
+
+	/* Free the array of pairs and the conf_data struct */
+	free(data->pairs);
+	free(data);
 }
 
 const conf_pair* conf_get_pair(const conf_data* data, const char* key)
 {
-	if (data && data->pairs && key) {
-		for (int i = 0; i < data->count; i++) {
-			if (strcmp(data->pairs[i].key, key) == 0) {
-				return &data->pairs[i];
-			}
+	if (!data || !key || !data->pairs) return NULL;
+
+	/* Iterate through all pairs and return the pair w/ correct key */
+	for (int i = 0; i < data->count; i++) {
+		if (strcmp(data->pairs[i].key, key) == 0) {
+			return &data->pairs[i];
 		}
 	}
+
+	/* No pair with the given key was found */
 	return NULL;
 }
 
 int conf_get_int(const conf_data* data, const char* key, int default_value)
 {
 	const conf_pair* pair = conf_get_pair(data, key);
-	if (pair && pair->type == CONF_INT) {
+
+	if (!pair) return default_value;
+
+	/* Check the correct value type */
+	switch (pair->type) {
+	case CONF_INT:
 		return pair->value.ival;
-	}
-	if (pair && pair->type == CONF_LONG) {
+	case CONF_LONG:
 		return (int)pair->value.lval;
+	default:
+		return default_value;
 	}
-	return default_value;
 }
 
 long conf_get_long(const conf_data* data, const char* key, long default_value)
 {
 	const conf_pair* pair = conf_get_pair(data, key);
-	if (pair && pair->type == CONF_LONG) {
-		return pair->value.lval;
-	}
-	return default_value;
+	return (pair && pair->type == CONF_LONG) ? pair->value.lval : default_value;
 }
 
 float conf_get_float(const conf_data* data, const char* key,
 					 float default_value)
 {
 	const conf_pair* pair = conf_get_pair(data, key);
-	if (pair && (pair->type == CONF_FLOAT)) {
-		return pair->value.fval;
-	}
-	if (pair && (pair->type == CONF_DOUBLE)) {
+
+	if (!pair) return default_value;
+
+	/* Check the correct value type */
+	switch (pair->type) {
+	case CONF_FLOAT:
+		return (float)pair->value.fval;
+	case CONF_DOUBLE:
 		return (float)pair->value.dval;
+	default:
+		return default_value;
 	}
-	return default_value;
 }
 
 double conf_get_double(const conf_data* data, const char* key,
 					   double default_value)
 {
 	const conf_pair* pair = conf_get_pair(data, key);
-	if (pair && pair->type == CONF_DOUBLE) {
-		return pair->value.dval;
-	}
-	return default_value;
+	return (pair && pair->type == CONF_DOUBLE) ? pair->value.dval
+											   : default_value;
 }
 
 const char* conf_get_string(const conf_data* data, const char* key,
 							const char* default_value)
 {
 	const conf_pair* pair = conf_get_pair(data, key);
-	if (pair && pair->type == CONF_STRING) {
-		return pair->value.str;
-	}
-	return default_value;
+	return (pair && pair->type == CONF_STRING) ? pair->value.str
+											   : default_value;
 }
